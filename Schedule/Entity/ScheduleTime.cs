@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Schedule.Common;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -18,12 +19,26 @@ namespace Schedule.Entity
         public string TenLop { get; set; }
         public int IDLich { get; set; }
         public int LoaiLich { get; set; }
+        private DateTime DateOf
+        {
+            get
+            {
+                return DateTime.ParseExact(this.Ngay, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            }
+        }
         public string ThoiGianVaoHoc
         {
             get
             {
                 return DateTime.Now.Date.AddMinutes(this.ThoiGianBatDau).ToString("HH:mm");
 
+            }
+        }
+        public string DayOfWeek
+        {
+            get
+            {
+                return this.DateOf.DayOfWeek.ConvertString();
             }
         }
     }

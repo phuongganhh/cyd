@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Framework.Caching;
+using Newtonsoft.Json;
 using Schedule.Common;
 using Schedule.Entity;
 using System;
@@ -13,49 +14,72 @@ namespace Schedule.Controllers
 {
     public class ApiController : BaseController
     {
+        private async Task<IEnumerable<Week>> GetWeek()
+        {
+            var resultData = MemoryCacheManager.Instance.Get<IEnumerable<Week>>("week");
+            if(resultData == null)
+            {
+                using (var service = new ApiService())
+                {
+                    var result = await service.Post<string>("/XepLich/AFXepLich.aspx/GetTuan");
+                    var html = HtmlService.Instance.Load(result.d);
+                    var resultHtml = html.DocumentNode.SelectNodes("//option").Select(x =>
+                    {
+                        DateTime dt = DateTime.ParseExact(x.Attributes["value"].Value, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        bool cur = false;
+                        if (dt <= DateTime.Now && DateTime.Now <= dt.AddDays(7))
+                        {
+                            cur = true;
+                        }
+                        return new Week
+                        {
+                            Number = Convert.ToInt32(x.Attributes["stttuan"].Value),
+                            Time = x.Attributes["value"].Value,
+                            Text = x.InnerText,
+                            Current = cur
+                        };
+                    });
+                    resultData =  resultHtml;
+                }
+                MemoryCacheManager.Instance.Set("week", resultData, 60 * 24);
+            }
+            return resultData;
+        }
         public async Task<ActionResult> Week()
         {
-            using(var service = new ApiService())
-            {
-                var result = await service.Post<string>("/XepLich/AFXepLich.aspx/GetTuan");
-                var html = HtmlService.Instance.Load(result.d);
-                var resultHtml = html.DocumentNode.SelectNodes("//option").Select(x =>
-                {
-                    DateTime dt = DateTime.ParseExact(x.Attributes["value"].Value, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                    bool cur = false;
-                    if(dt <= DateTime.Now && DateTime.Now <= dt.AddDays(7))
-                    {
-                        cur = true;
-                    }
-                    return new Week
-                    {
-                        Number = Convert.ToInt32(x.Attributes["stttuan"].Value),
-                        Time = x.Attributes["value"].Value,
-                        Text = x.InnerText,
-                        Current = cur
-                    };
-                });
-                return this.JsonExpando(resultHtml);
-            }
+            return this.JsonExpando(await this.GetWeek());
         }
-        public async Task<ActionResult> Class() {
-            using(var api = new ApiService())
+        private async Task<IEnumerable<Classes>> GetClasses()
+        {
+            var resultData = MemoryCacheManager.Instance.Get<IEnumerable<Classes>>("classes");
+            if(resultData == null)
             {
-                var result = await api.Post<string>("/AjaxFunction.aspx/GetLopGoc");
-                var document = HtmlService.Instance.Load(result.d);
-                var resultHtml = document.DocumentNode.SelectNodes("//option").Select(x =>
+                using (var api = new ApiService())
                 {
-                    return new Classes
+                    var result = await api.Post<string>("/AjaxFunction.aspx/GetLopGoc");
+                    var document = HtmlService.Instance.Load(result.d);
+                    var resultHtml = document.DocumentNode.SelectNodes("//option").Select(x =>
                     {
-                        Name = x.InnerText,
-                        Current = x.InnerText.Equals("CÐD8I")
-                    };
-                });
-                return this.JsonExpando(resultHtml);
+                        return new Classes
+                        {
+                            Name = x.InnerText,
+                            Current = x.InnerText.Equals("CÐD8I")
+                        };
+                    });
+                    resultData = resultHtml;
+                    MemoryCacheManager.Instance.Set("classes", resultData, 60 * 24);
+                }
             }
+            return resultData;
+            
         }
-        public async Task<ActionResult> Schedule(string Class,string TuNgay, string DenNgay) {
-            using(var api = new ApiService())
+        public async Task<ActionResult> Class()
+        {
+            return this.JsonExpando(await this.GetClasses());
+        }
+        private async Task<IEnumerable<ScheduleTime>> GetSchedule(string Class, string Nhom, string TuNgay, string DenNgay)
+        {
+            using (var api = new ApiService())
             {
                 var data = new Dictionary<string, object>
                 {
@@ -66,10 +90,53 @@ namespace Schedule.Controllers
                     ["TuNgay"] = TuNgay,
                     ["DenNgay"] = DenNgay
                 };
-                var result = await api.Post<string>("/XepLich/AFXepLich.aspx/GetLichTraCuu",data);
+                var result = await api.Post<string>("/XepLich/AFXepLich.aspx/GetLichTraCuu", data);
                 var schedule = JsonConvert.DeserializeObject<IEnumerable<ScheduleTime>>(result.d);
-                return this.JsonExpando(schedule);
+                var resultModel = schedule;
+                if (Nhom != null)
+                {
+                    resultModel = schedule.Where(x =>
+                    {
+                        if (x.TenLop.EndsWith(Nhom) || !x.TenLop.Contains("_"))
+                        {
+                            return true;
+                        }
+                        return false;
+                    });
+                }
+                return resultModel;
             }
+        }
+        public async Task<ActionResult> Schedule(string Class, string Nhom, string TuNgay, string DenNgay)
+        {
+            var weekAsync = await this.GetWeek();
+            var scheduleAsync = await this.GetSchedule(Class, Nhom, TuNgay, DenNgay);
+            
+            var tn = TuNgay.ToDateTime();
+            var dn = DenNgay.ToDateTime();
+            var week = weekAsync.Where(x => tn <= x.Time.ToDateTime() && x.Time.ToDateTime() <= dn);
+            var result = week.Select(x =>
+            {
+                var days = new List<Day>();
+                for (int i = 0; i < 7; i++)
+                {
+                    var time = x.Time.ToDateTime().AddDays(i);
+                    days.Add(new Day
+                    {
+                        Time = time.ToString("dd/MM"),
+                        Name = time.DayOfWeek.ConvertString(),
+                        Current = time == DateTime.Now.Date,
+                        Morning = scheduleAsync.Where(w=>w.Ngay.ToDateTime().Date == time.Date && w.Ngay.ToDateTime().Date.AddMinutes(w.ThoiGianBatDau).Hour <= 12),
+                        Afternoon = scheduleAsync.Where(w=>w.Ngay.ToDateTime().Date == time.Date && w.Ngay.ToDateTime().Date.AddMinutes(w.ThoiGianBatDau).Hour > 12)
+                    });
+                }
+                return new
+                {
+                    name = x.Text,
+                    days
+                };
+            });
+            return this.JsonExpando(result);
         }
     }
 }

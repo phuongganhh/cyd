@@ -93,7 +93,7 @@ namespace Schedule.Controllers
                 var result = await api.Post<string>("/XepLich/AFXepLich.aspx/GetLichTraCuu", data);
                 var schedule = JsonConvert.DeserializeObject<IEnumerable<ScheduleTime>>(result.d);
                 var resultModel = schedule;
-                if (Nhom != null)
+                if (!string.IsNullOrEmpty(Nhom))
                 {
                     resultModel = schedule.Where(x =>
                     {
@@ -107,36 +107,61 @@ namespace Schedule.Controllers
                 return resultModel;
             }
         }
+        public ActionResult Group()
+        {
+            var l = new List<dynamic>();
+            l.Add(new
+            {
+                Name = "Tất cả",
+                Value = "",
+                Current = false
+            });
+            l.Add(new
+            {
+                Name = "Nhóm 2",
+                Value = "N2",
+                Current = true
+            });
+            return this.JsonExpando(l);
+        }
+
         public async Task<ActionResult> Schedule(string Class, string Nhom, string TuNgay, string DenNgay)
         {
-            var weekAsync = await this.GetWeek();
-            var scheduleAsync = await this.GetSchedule(Class, Nhom, TuNgay, DenNgay);
-            
-            var tn = TuNgay.ToDateTime();
-            var dn = DenNgay.ToDateTime();
-            var week = weekAsync.Where(x => tn <= x.Time.ToDateTime() && x.Time.ToDateTime() <= dn);
-            var result = week.Select(x =>
+            try
             {
-                var days = new List<Day>();
-                for (int i = 0; i < 7; i++)
+                var weekAsync = await this.GetWeek();
+                var scheduleAsync = await this.GetSchedule(Class, Nhom, TuNgay, DenNgay);
+
+                var tn = TuNgay.ToDateTime();
+                var dn = DenNgay.ToDateTime();
+                var week = weekAsync.Where(x => tn <= x.Time.ToDateTime() && x.Time.ToDateTime() <= dn);
+                var result = week.Select(x =>
                 {
-                    var time = x.Time.ToDateTime().AddDays(i);
-                    days.Add(new Day
+                    var days = new List<Day>();
+                    for (int i = 0; i < 7; i++)
                     {
-                        Time = time.ToString("dd/MM"),
-                        Name = time.DayOfWeek.ConvertString(),
-                        Current = time == DateTime.Now.Date,
-                        Morning = scheduleAsync.Where(w=>w.Ngay.ToDateTime().Date == time.Date && w.Ngay.ToDateTime().Date.AddMinutes(w.ThoiGianBatDau).Hour <= 12),
-                        Afternoon = scheduleAsync.Where(w=>w.Ngay.ToDateTime().Date == time.Date && w.Ngay.ToDateTime().Date.AddMinutes(w.ThoiGianBatDau).Hour > 12)
-                    });
-                }
-                return new
-                {
-                    name = x.Text,
-                    days
-                };
-            });
-            return this.JsonExpando(result);
+                        var time = x.Time.ToDateTime().AddDays(i);
+                        days.Add(new Day
+                        {
+                            Time = time.ToString("dd/MM"),
+                            Name = time.DayOfWeek.ConvertString(),
+                            Current = time == DateTime.Now.Date,
+                            Morning = scheduleAsync.Where(w => w.Ngay.ToDateTime().Date == time.Date && w.Ngay.ToDateTime().Date.AddMinutes(w.ThoiGianBatDau).Hour <= 12),
+                            Afternoon = scheduleAsync.Where(w => w.Ngay.ToDateTime().Date == time.Date && w.Ngay.ToDateTime().Date.AddMinutes(w.ThoiGianBatDau).Hour > 12)
+                        });
+                    }
+                    return new
+                    {
+                        name = x.Text,
+                        days
+                    };
+                });
+                return this.JsonExpando(result);
+            }
+            catch (Exception)
+            {
+                return this.JsonExpando(new List<dynamic>());
+            }
         }
     }
 }

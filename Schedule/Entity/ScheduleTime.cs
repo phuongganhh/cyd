@@ -19,6 +19,13 @@ namespace Schedule.Entity
         public string TenLop { get; set; }
         public int IDLich { get; set; }
         public int LoaiLich { get; set; }
+        public string ThoiGianKetThuc
+        {
+            get
+            {
+                return DateTime.Now.Date.AddMinutes(this.ThoiGianBatDau).AddMinutes(this.SoTiet * 45 + (this.SoTiet -1) * 10).ToString("HH:mm");
+            }
+        }
         private DateTime DateOf
         {
             get

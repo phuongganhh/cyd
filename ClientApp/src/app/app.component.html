@@ -1,280 +1,79 @@
-<div class="container-fluid">
-    <div class="row">
-        <div style="width: 100%; margin: 5px auto;">
-            <table style="margin: auto;" class="table">
-                <tbody>
-                    <tr style="margin-bottom: 25px;">
-                        <td style="border: none; color: Blue; font-weight: bold; text-align: right;">Từ :
+<div id="pnlPrint" style="width:780px;height: 2000px;" *ngIf="tkb">
+    <div style="display: inline;">
+        <select (change)="onChange($event);" class="form-control" style="width: 25%;float: left;" *ngIf="week">
+            <option *ngFor="let w of week" value="{{w.Time}}" selected="{{w.Current ? 'selected' : ''}}" [ngClass]="{'weekCurrent': w.Current}">Từ {{w.Text}}</option>
+        </select>
+        <select (change)="onChangeDenNgay($event);" class="form-control" style="width: 27%;float: left;" *ngIf="week">
+            <option *ngFor="let w of week" value="{{w.Time}}" selected="{{w.Current ? 'selected' : ''}}" [ngClass]="{'weekCurrent': w.Current}">Đến {{w.Text}}</option>
+        </select>
+        <select (change)="onChangeClass($event);" class="form-control" style="width:21%;float: left;" *ngIf="classes">
+            <option  *ngFor="let c of classes" value="{{c.Name}}" selected="{{c.Current ? 'selected' : ''}}" [ngClass]="{'weekCurrent': c.Current}">{{c.Name}}</option>
+        </select>
+        <select (change)="onChangeGroup($event);" class="form-control" style="width: 24%;float: left;" *ngIf="groups">
+            <option  *ngFor="let g of groups" value="{{g.Value}}" selected="{{g.Current ? 'selected' : ''}}" [ngClass]="{'weekCurrent': g.Current}">{{g.Name}}</option>
+        </select>
+    </div>
 
-                            <select id="cboTuanTu" class="form-control" style="width: 400px; display: inline-block;">
-                                <option value="14/01/2019" stttuan="20">Tuần 20 - [14/01/2019 -&gt; 20/01/2019]</option>
-                                <option value="21/01/2019" stttuan="21">Tuần 21 - [21/01/2019 -&gt; 27/01/2019]</option>
-                                <option value="28/01/2019" stttuan="22">Tuần 22 - [28/01/2019 -&gt; 03/02/2019]</option>
-                                <option value="04/02/2019" stttuan="23">Tuần 23 - [04/02/2019 -&gt; 10/02/2019]</option>
-                                <option value="11/02/2019" stttuan="24">Tuần 24 - [11/02/2019 -&gt; 17/02/2019]</option>
-                                <option value="18/02/2019" stttuan="25">Tuần 25 - [18/02/2019 -&gt; 24/02/2019]</option>
-                                <option value="25/02/2019" stttuan="26">Tuần 26 - [25/02/2019 -&gt; 03/03/2019]</option>
-                                <option value="04/03/2019" stttuan="27">Tuần 27 - [04/03/2019 -&gt; 10/03/2019]</option>
-                                <option value="11/03/2019" stttuan="28">Tuần 28 - [11/03/2019 -&gt; 17/03/2019]</option>
-                                <option value="18/03/2019" stttuan="29">Tuần 29 - [18/03/2019 -&gt; 24/03/2019]</option>
-                                <option value="25/03/2019" stttuan="30">Tuần 30 - [25/03/2019 -&gt; 31/03/2019]</option>
-                                <option value="01/04/2019" stttuan="31">Tuần 31 - [01/04/2019 -&gt; 07/04/2019]</option>
-                                <option value="08/04/2019" stttuan="32">Tuần 32 - [08/04/2019 -&gt; 14/04/2019]</option>
-                                <option value="15/04/2019" stttuan="33">Tuần 33 - [15/04/2019 -&gt; 21/04/2019]</option>
-                                <option value="22/04/2019" stttuan="34">Tuần 34 - [22/04/2019 -&gt; 28/04/2019]</option>
-                                <option value="29/04/2019" stttuan="35">Tuần 35 - [29/04/2019 -&gt; 05/05/2019]</option>
-                                <option value="06/05/2019" stttuan="36">Tuần 36 - [06/05/2019 -&gt; 12/05/2019]</option>
-                                <option value="13/05/2019" stttuan="37">Tuần 37 - [13/05/2019 -&gt; 19/05/2019]</option>
-                                <option value="20/05/2019" stttuan="38">Tuần 38 - [20/05/2019 -&gt; 26/05/2019]</option>
-                                <option value="27/05/2019" stttuan="39">Tuần 39 - [27/05/2019 -&gt; 02/06/2019]</option>
-                                <option value="03/06/2019" stttuan="40">Tuần 40 - [03/06/2019 -&gt; 09/06/2019]</option>
-                                <option value="10/06/2019" stttuan="41">Tuần 41 - [10/06/2019 -&gt; 16/06/2019]</option>
-                                <option value="17/06/2019" stttuan="42">Tuần 42 - [17/06/2019 -&gt; 23/06/2019]</option>
-                                <option value="24/06/2019" stttuan="43">Tuần 43 - [24/06/2019 -&gt; 30/06/2019]</option>
-                                <option value="01/07/2019" stttuan="44">Tuần 44 - [01/07/2019 -&gt; 07/07/2019]</option>
-                                <option value="08/07/2019" stttuan="45">Tuần 45 - [08/07/2019 -&gt; 14/07/2019]</option>
-                                <option value="15/07/2019" stttuan="46">Tuần 46 - [15/07/2019 -&gt; 21/07/2019]</option>
-                                <option value="22/07/2019" stttuan="47">Tuần 47 - [22/07/2019 -&gt; 28/07/2019]</option>
-                                <option value="29/07/2019" stttuan="48">Tuần 48 - [29/07/2019 -&gt; 04/08/2019]</option>
-                                <option value="05/08/2019" stttuan="49">Tuần 49 - [05/08/2019 -&gt; 11/08/2019]</option>
-                                <option value="12/08/2019" stttuan="50">Tuần 50 - [12/08/2019 -&gt; 18/08/2019]</option>
-                                <option value="19/08/2019" stttuan="51">Tuần 51 - [19/08/2019 -&gt; 25/08/2019]</option>
-                                <option value="26/08/2019" stttuan="52">Tuần 52 - [26/08/2019 -&gt; 01/09/2019]</option>
-                                <option value="02/09/2019" stttuan="1">Tuần 1 - [02/09/2019 -&gt; 08/09/2019]</option>
-                                <option value="09/09/2019" stttuan="2">Tuần 2 - [09/09/2019 -&gt; 15/09/2019]</option>
-                                <option value="16/09/2019" stttuan="3">Tuần 3 - [16/09/2019 -&gt; 22/09/2019]</option>
-                                <option value="23/09/2019" stttuan="4">Tuần 4 - [23/09/2019 -&gt; 29/09/2019]</option>
-                                <option value="30/09/2019" stttuan="5">Tuần 5 - [30/09/2019 -&gt; 06/10/2019]</option>
-                                <option value="07/10/2019" stttuan="6">Tuần 6 - [07/10/2019 -&gt; 13/10/2019]</option>
-                                <option value="14/10/2019" stttuan="7">Tuần 7 - [14/10/2019 -&gt; 20/10/2019]</option>
-                                <option value="21/10/2019" stttuan="8">Tuần 8 - [21/10/2019 -&gt; 27/10/2019]</option>
-                                <option value="28/10/2019" stttuan="9">Tuần 9 - [28/10/2019 -&gt; 03/11/2019]</option>
-                                <option value="04/11/2019" stttuan="10">Tuần 10 - [04/11/2019 -&gt; 10/11/2019]</option>
-                                <option value="11/11/2019" stttuan="11">Tuần 11 - [11/11/2019 -&gt; 17/11/2019]</option>
-                                <option value="18/11/2019" stttuan="12">Tuần 12 - [18/11/2019 -&gt; 24/11/2019]</option>
-                                <option value="25/11/2019" stttuan="13">Tuần 13 - [25/11/2019 -&gt; 01/12/2019]</option>
-                                <option value="02/12/2019" stttuan="14">Tuần 14 - [02/12/2019 -&gt; 08/12/2019]</option>
-                                <option value="09/12/2019" stttuan="15">Tuần 15 - [09/12/2019 -&gt; 15/12/2019]</option>
-                                <option value="16/12/2019" stttuan="16">Tuần 16 - [16/12/2019 -&gt; 22/12/2019]</option>
-                                <option value="23/12/2019" stttuan="17">Tuần 17 - [23/12/2019 -&gt; 29/12/2019]</option>
-                                <option value="30/12/2019" stttuan="18">Tuần 18 - [30/12/2019 -&gt; 05/01/2020]</option>
-                                <option value="06/01/2020" stttuan="19">Tuần 19 - [06/01/2020 -&gt; 12/01/2020]</option>
-                                <option value="13/01/2020" stttuan="20">Tuần 20 - [13/01/2020 -&gt; 19/01/2020]</option>
-                                <option value="20/01/2020" stttuan="21">Tuần 21 - [20/01/2020 -&gt; 26/01/2020]</option>
-                                <option value="27/01/2020" stttuan="22">Tuần 22 - [27/01/2020 -&gt; 02/02/2020]</option>
-                                <option value="03/02/2020" stttuan="23">Tuần 23 - [03/02/2020 -&gt; 09/02/2020]</option>
-                                <option value="10/02/2020" stttuan="24">Tuần 24 - [10/02/2020 -&gt; 16/02/2020]</option>
-                                <option value="17/02/2020" stttuan="25">Tuần 25 - [17/02/2020 -&gt; 23/02/2020]</option>
-                                <option value="24/02/2020" stttuan="26">Tuần 26 - [24/02/2020 -&gt; 01/03/2020]</option>
-                                <option value="02/03/2020" stttuan="27">Tuần 27 - [02/03/2020 -&gt; 08/03/2020]</option>
-                                <option value="09/03/2020" stttuan="28">Tuần 28 - [09/03/2020 -&gt; 15/03/2020]</option>
-                                <option value="16/03/2020" stttuan="29">Tuần 29 - [16/03/2020 -&gt; 22/03/2020]</option>
-                                <option value="23/03/2020" stttuan="30">Tuần 30 - [23/03/2020 -&gt; 29/03/2020]</option>
-                                <option value="30/03/2020" stttuan="31">Tuần 31 - [30/03/2020 -&gt; 05/04/2020]</option>
-                                <option value="06/04/2020" stttuan="32">Tuần 32 - [06/04/2020 -&gt; 12/04/2020]</option>
-                                <option value="13/04/2020" stttuan="33">Tuần 33 - [13/04/2020 -&gt; 19/04/2020]</option>
-                                <option value="20/04/2020" stttuan="34">Tuần 34 - [20/04/2020 -&gt; 26/04/2020]</option>
-                                <option value="27/04/2020" stttuan="35">Tuần 35 - [27/04/2020 -&gt; 03/05/2020]</option>
-                                <option value="04/05/2020" stttuan="36">Tuần 36 - [04/05/2020 -&gt; 10/05/2020]</option>
-                                <option value="11/05/2020" stttuan="37">Tuần 37 - [11/05/2020 -&gt; 17/05/2020]</option>
-                                <option value="18/05/2020" stttuan="38">Tuần 38 - [18/05/2020 -&gt; 24/05/2020]</option>
-                                <option value="25/05/2020" stttuan="39">Tuần 39 - [25/05/2020 -&gt; 31/05/2020]</option>
-                                <option value="01/06/2020" stttuan="40">Tuần 40 - [01/06/2020 -&gt; 07/06/2020]</option>
-                                <option value="08/06/2020" stttuan="41">Tuần 41 - [08/06/2020 -&gt; 14/06/2020]</option>
-                                <option value="15/06/2020" stttuan="42">Tuần 42 - [15/06/2020 -&gt; 21/06/2020]</option>
-                                <option value="22/06/2020" stttuan="43">Tuần 43 - [22/06/2020 -&gt; 28/06/2020]</option>
-                                <option value="29/06/2020" stttuan="44">Tuần 44 - [29/06/2020 -&gt; 05/07/2020]</option>
-                                <option value="06/07/2020" stttuan="45">Tuần 45 - [06/07/2020 -&gt; 12/07/2020]</option>
-                                <option value="13/07/2020" stttuan="46">Tuần 46 - [13/07/2020 -&gt; 19/07/2020]</option>
-                                <option value="20/07/2020" stttuan="47">Tuần 47 - [20/07/2020 -&gt; 26/07/2020]</option>
-                                <option value="27/07/2020" stttuan="48">Tuần 48 - [27/07/2020 -&gt; 02/08/2020]</option>
-                                <option value="03/08/2020" stttuan="49">Tuần 49 - [03/08/2020 -&gt; 09/08/2020]</option>
-                                <option value="10/08/2020" stttuan="50">Tuần 50 - [10/08/2020 -&gt; 16/08/2020]</option>
-                                <option value="17/08/2020" stttuan="51">Tuần 51 - [17/08/2020 -&gt; 23/08/2020]</option>
-                                <option value="24/08/2020" stttuan="52">Tuần 52 - [24/08/2020 -&gt; 30/08/2020]</option>
-                            </select>
-                        </td>
-                        <td style="border: none;color: Blue; font-weight: bold;">Đến :
-                            <select id="cboTuanDen" class="form-control" style="width: 400px; display: inline-block;">
-                                <option value="14/01/2019" stttuan="20">Tuần 20 - [14/01/2019 -&gt; 20/01/2019]</option>
-                                <option value="21/01/2019" stttuan="21">Tuần 21 - [21/01/2019 -&gt; 27/01/2019]</option>
-                                <option value="28/01/2019" stttuan="22">Tuần 22 - [28/01/2019 -&gt; 03/02/2019]</option>
-                                <option value="04/02/2019" stttuan="23">Tuần 23 - [04/02/2019 -&gt; 10/02/2019]</option>
-                                <option value="11/02/2019" stttuan="24">Tuần 24 - [11/02/2019 -&gt; 17/02/2019]</option>
-                                <option value="18/02/2019" stttuan="25">Tuần 25 - [18/02/2019 -&gt; 24/02/2019]</option>
-                                <option value="25/02/2019" stttuan="26">Tuần 26 - [25/02/2019 -&gt; 03/03/2019]</option>
-                                <option value="04/03/2019" stttuan="27">Tuần 27 - [04/03/2019 -&gt; 10/03/2019]</option>
-                                <option value="11/03/2019" stttuan="28">Tuần 28 - [11/03/2019 -&gt; 17/03/2019]</option>
-                                <option value="18/03/2019" stttuan="29">Tuần 29 - [18/03/2019 -&gt; 24/03/2019]</option>
-                                <option value="25/03/2019" stttuan="30">Tuần 30 - [25/03/2019 -&gt; 31/03/2019]</option>
-                                <option value="01/04/2019" stttuan="31">Tuần 31 - [01/04/2019 -&gt; 07/04/2019]</option>
-                                <option value="08/04/2019" stttuan="32">Tuần 32 - [08/04/2019 -&gt; 14/04/2019]</option>
-                                <option value="15/04/2019" stttuan="33">Tuần 33 - [15/04/2019 -&gt; 21/04/2019]</option>
-                                <option value="22/04/2019" stttuan="34">Tuần 34 - [22/04/2019 -&gt; 28/04/2019]</option>
-                                <option value="29/04/2019" stttuan="35">Tuần 35 - [29/04/2019 -&gt; 05/05/2019]</option>
-                                <option value="06/05/2019" stttuan="36">Tuần 36 - [06/05/2019 -&gt; 12/05/2019]</option>
-                                <option value="13/05/2019" stttuan="37">Tuần 37 - [13/05/2019 -&gt; 19/05/2019]</option>
-                                <option value="20/05/2019" stttuan="38">Tuần 38 - [20/05/2019 -&gt; 26/05/2019]</option>
-                                <option value="27/05/2019" stttuan="39">Tuần 39 - [27/05/2019 -&gt; 02/06/2019]</option>
-                                <option value="03/06/2019" stttuan="40">Tuần 40 - [03/06/2019 -&gt; 09/06/2019]</option>
-                                <option value="10/06/2019" stttuan="41">Tuần 41 - [10/06/2019 -&gt; 16/06/2019]</option>
-                                <option value="17/06/2019" stttuan="42">Tuần 42 - [17/06/2019 -&gt; 23/06/2019]</option>
-                                <option value="24/06/2019" stttuan="43">Tuần 43 - [24/06/2019 -&gt; 30/06/2019]</option>
-                                <option value="01/07/2019" stttuan="44">Tuần 44 - [01/07/2019 -&gt; 07/07/2019]</option>
-                                <option value="08/07/2019" stttuan="45">Tuần 45 - [08/07/2019 -&gt; 14/07/2019]</option>
-                                <option value="15/07/2019" stttuan="46">Tuần 46 - [15/07/2019 -&gt; 21/07/2019]</option>
-                                <option value="22/07/2019" stttuan="47">Tuần 47 - [22/07/2019 -&gt; 28/07/2019]</option>
-                                <option value="29/07/2019" stttuan="48">Tuần 48 - [29/07/2019 -&gt; 04/08/2019]</option>
-                                <option value="05/08/2019" stttuan="49">Tuần 49 - [05/08/2019 -&gt; 11/08/2019]</option>
-                                <option value="12/08/2019" stttuan="50">Tuần 50 - [12/08/2019 -&gt; 18/08/2019]</option>
-                                <option value="19/08/2019" stttuan="51">Tuần 51 - [19/08/2019 -&gt; 25/08/2019]</option>
-                                <option value="26/08/2019" stttuan="52">Tuần 52 - [26/08/2019 -&gt; 01/09/2019]</option>
-                                <option value="02/09/2019" stttuan="1">Tuần 1 - [02/09/2019 -&gt; 08/09/2019]</option>
-                                <option value="09/09/2019" stttuan="2">Tuần 2 - [09/09/2019 -&gt; 15/09/2019]</option>
-                                <option value="16/09/2019" stttuan="3">Tuần 3 - [16/09/2019 -&gt; 22/09/2019]</option>
-                                <option value="23/09/2019" stttuan="4">Tuần 4 - [23/09/2019 -&gt; 29/09/2019]</option>
-                                <option value="30/09/2019" stttuan="5">Tuần 5 - [30/09/2019 -&gt; 06/10/2019]</option>
-                                <option value="07/10/2019" stttuan="6">Tuần 6 - [07/10/2019 -&gt; 13/10/2019]</option>
-                                <option value="14/10/2019" stttuan="7">Tuần 7 - [14/10/2019 -&gt; 20/10/2019]</option>
-                                <option value="21/10/2019" stttuan="8">Tuần 8 - [21/10/2019 -&gt; 27/10/2019]</option>
-                                <option value="28/10/2019" stttuan="9">Tuần 9 - [28/10/2019 -&gt; 03/11/2019]</option>
-                                <option value="04/11/2019" stttuan="10">Tuần 10 - [04/11/2019 -&gt; 10/11/2019]</option>
-                                <option value="11/11/2019" stttuan="11">Tuần 11 - [11/11/2019 -&gt; 17/11/2019]</option>
-                                <option value="18/11/2019" stttuan="12">Tuần 12 - [18/11/2019 -&gt; 24/11/2019]</option>
-                                <option value="25/11/2019" stttuan="13">Tuần 13 - [25/11/2019 -&gt; 01/12/2019]</option>
-                                <option value="02/12/2019" stttuan="14">Tuần 14 - [02/12/2019 -&gt; 08/12/2019]</option>
-                                <option value="09/12/2019" stttuan="15">Tuần 15 - [09/12/2019 -&gt; 15/12/2019]</option>
-                                <option value="16/12/2019" stttuan="16">Tuần 16 - [16/12/2019 -&gt; 22/12/2019]</option>
-                                <option value="23/12/2019" stttuan="17">Tuần 17 - [23/12/2019 -&gt; 29/12/2019]</option>
-                                <option value="30/12/2019" stttuan="18">Tuần 18 - [30/12/2019 -&gt; 05/01/2020]</option>
-                                <option value="06/01/2020" stttuan="19">Tuần 19 - [06/01/2020 -&gt; 12/01/2020]</option>
-                                <option value="13/01/2020" stttuan="20">Tuần 20 - [13/01/2020 -&gt; 19/01/2020]</option>
-                                <option value="20/01/2020" stttuan="21">Tuần 21 - [20/01/2020 -&gt; 26/01/2020]</option>
-                                <option value="27/01/2020" stttuan="22">Tuần 22 - [27/01/2020 -&gt; 02/02/2020]</option>
-                                <option value="03/02/2020" stttuan="23">Tuần 23 - [03/02/2020 -&gt; 09/02/2020]</option>
-                                <option value="10/02/2020" stttuan="24">Tuần 24 - [10/02/2020 -&gt; 16/02/2020]</option>
-                                <option value="17/02/2020" stttuan="25">Tuần 25 - [17/02/2020 -&gt; 23/02/2020]</option>
-                                <option value="24/02/2020" stttuan="26">Tuần 26 - [24/02/2020 -&gt; 01/03/2020]</option>
-                                <option value="02/03/2020" stttuan="27">Tuần 27 - [02/03/2020 -&gt; 08/03/2020]</option>
-                                <option value="09/03/2020" stttuan="28">Tuần 28 - [09/03/2020 -&gt; 15/03/2020]</option>
-                                <option value="16/03/2020" stttuan="29">Tuần 29 - [16/03/2020 -&gt; 22/03/2020]</option>
-                                <option value="23/03/2020" stttuan="30">Tuần 30 - [23/03/2020 -&gt; 29/03/2020]</option>
-                                <option value="30/03/2020" stttuan="31">Tuần 31 - [30/03/2020 -&gt; 05/04/2020]</option>
-                                <option value="06/04/2020" stttuan="32">Tuần 32 - [06/04/2020 -&gt; 12/04/2020]</option>
-                                <option value="13/04/2020" stttuan="33">Tuần 33 - [13/04/2020 -&gt; 19/04/2020]</option>
-                                <option value="20/04/2020" stttuan="34">Tuần 34 - [20/04/2020 -&gt; 26/04/2020]</option>
-                                <option value="27/04/2020" stttuan="35">Tuần 35 - [27/04/2020 -&gt; 03/05/2020]</option>
-                                <option value="04/05/2020" stttuan="36">Tuần 36 - [04/05/2020 -&gt; 10/05/2020]</option>
-                                <option value="11/05/2020" stttuan="37">Tuần 37 - [11/05/2020 -&gt; 17/05/2020]</option>
-                                <option value="18/05/2020" stttuan="38">Tuần 38 - [18/05/2020 -&gt; 24/05/2020]</option>
-                                <option value="25/05/2020" stttuan="39">Tuần 39 - [25/05/2020 -&gt; 31/05/2020]</option>
-                                <option value="01/06/2020" stttuan="40">Tuần 40 - [01/06/2020 -&gt; 07/06/2020]</option>
-                                <option value="08/06/2020" stttuan="41">Tuần 41 - [08/06/2020 -&gt; 14/06/2020]</option>
-                                <option value="15/06/2020" stttuan="42">Tuần 42 - [15/06/2020 -&gt; 21/06/2020]</option>
-                                <option value="22/06/2020" stttuan="43">Tuần 43 - [22/06/2020 -&gt; 28/06/2020]</option>
-                                <option value="29/06/2020" stttuan="44">Tuần 44 - [29/06/2020 -&gt; 05/07/2020]</option>
-                                <option value="06/07/2020" stttuan="45">Tuần 45 - [06/07/2020 -&gt; 12/07/2020]</option>
-                                <option value="13/07/2020" stttuan="46">Tuần 46 - [13/07/2020 -&gt; 19/07/2020]</option>
-                                <option value="20/07/2020" stttuan="47">Tuần 47 - [20/07/2020 -&gt; 26/07/2020]</option>
-                                <option value="27/07/2020" stttuan="48">Tuần 48 - [27/07/2020 -&gt; 02/08/2020]</option>
-                                <option value="03/08/2020" stttuan="49">Tuần 49 - [03/08/2020 -&gt; 09/08/2020]</option>
-                                <option value="10/08/2020" stttuan="50">Tuần 50 - [10/08/2020 -&gt; 16/08/2020]</option>
-                                <option value="17/08/2020" stttuan="51">Tuần 51 - [17/08/2020 -&gt; 23/08/2020]</option>
-                                <option value="24/08/2020" stttuan="52">Tuần 52 - [24/08/2020 -&gt; 30/08/2020]</option>
-                            </select>
-                        </td>
-                        <td style="border: none;color: Blue; font-weight: bold;">Đến :
-                            <select id="cboTuanDen" class="form-control" style="width: 200px; display: inline-block;">
-                                <option value="14/01/2019" stttuan="20">Tuần 20 - [14/01/2019 -&gt; 20/01/2019]</option>
-                                <option value="21/01/2019" stttuan="21">Tuần 21 - [21/01/2019 -&gt; 27/01/2019]</option>
-                                <option value="28/01/2019" stttuan="22">Tuần 22 - [28/01/2019 -&gt; 03/02/2019]</option>
-                                <option value="04/02/2019" stttuan="23">Tuần 23 - [04/02/2019 -&gt; 10/02/2019]</option>
-                                <option value="11/02/2019" stttuan="24">Tuần 24 - [11/02/2019 -&gt; 17/02/2019]</option>
-                                <option value="18/02/2019" stttuan="25">Tuần 25 - [18/02/2019 -&gt; 24/02/2019]</option>
-                                <option value="25/02/2019" stttuan="26">Tuần 26 - [25/02/2019 -&gt; 03/03/2019]</option>
-                                <option value="04/03/2019" stttuan="27">Tuần 27 - [04/03/2019 -&gt; 10/03/2019]</option>
-                                <option value="11/03/2019" stttuan="28">Tuần 28 - [11/03/2019 -&gt; 17/03/2019]</option>
-                                <option value="18/03/2019" stttuan="29">Tuần 29 - [18/03/2019 -&gt; 24/03/2019]</option>
-                                <option value="25/03/2019" stttuan="30">Tuần 30 - [25/03/2019 -&gt; 31/03/2019]</option>
-                                <option value="01/04/2019" stttuan="31">Tuần 31 - [01/04/2019 -&gt; 07/04/2019]</option>
-                                <option value="08/04/2019" stttuan="32">Tuần 32 - [08/04/2019 -&gt; 14/04/2019]</option>
-                                <option value="15/04/2019" stttuan="33">Tuần 33 - [15/04/2019 -&gt; 21/04/2019]</option>
-                                <option value="22/04/2019" stttuan="34">Tuần 34 - [22/04/2019 -&gt; 28/04/2019]</option>
-                                <option value="29/04/2019" stttuan="35">Tuần 35 - [29/04/2019 -&gt; 05/05/2019]</option>
-                                <option value="06/05/2019" stttuan="36">Tuần 36 - [06/05/2019 -&gt; 12/05/2019]</option>
-                                <option value="13/05/2019" stttuan="37">Tuần 37 - [13/05/2019 -&gt; 19/05/2019]</option>
-                                <option value="20/05/2019" stttuan="38">Tuần 38 - [20/05/2019 -&gt; 26/05/2019]</option>
-                                <option value="27/05/2019" stttuan="39">Tuần 39 - [27/05/2019 -&gt; 02/06/2019]</option>
-                                <option value="03/06/2019" stttuan="40">Tuần 40 - [03/06/2019 -&gt; 09/06/2019]</option>
-                                <option value="10/06/2019" stttuan="41">Tuần 41 - [10/06/2019 -&gt; 16/06/2019]</option>
-                                <option value="17/06/2019" stttuan="42">Tuần 42 - [17/06/2019 -&gt; 23/06/2019]</option>
-                                <option value="24/06/2019" stttuan="43">Tuần 43 - [24/06/2019 -&gt; 30/06/2019]</option>
-                                <option value="01/07/2019" stttuan="44">Tuần 44 - [01/07/2019 -&gt; 07/07/2019]</option>
-                                <option value="08/07/2019" stttuan="45">Tuần 45 - [08/07/2019 -&gt; 14/07/2019]</option>
-                                <option value="15/07/2019" stttuan="46">Tuần 46 - [15/07/2019 -&gt; 21/07/2019]</option>
-                                <option value="22/07/2019" stttuan="47">Tuần 47 - [22/07/2019 -&gt; 28/07/2019]</option>
-                                <option value="29/07/2019" stttuan="48">Tuần 48 - [29/07/2019 -&gt; 04/08/2019]</option>
-                                <option value="05/08/2019" stttuan="49">Tuần 49 - [05/08/2019 -&gt; 11/08/2019]</option>
-                                <option value="12/08/2019" stttuan="50">Tuần 50 - [12/08/2019 -&gt; 18/08/2019]</option>
-                                <option value="19/08/2019" stttuan="51">Tuần 51 - [19/08/2019 -&gt; 25/08/2019]</option>
-                                <option value="26/08/2019" stttuan="52">Tuần 52 - [26/08/2019 -&gt; 01/09/2019]</option>
-                                <option value="02/09/2019" stttuan="1">Tuần 1 - [02/09/2019 -&gt; 08/09/2019]</option>
-                                <option value="09/09/2019" stttuan="2">Tuần 2 - [09/09/2019 -&gt; 15/09/2019]</option>
-                                <option value="16/09/2019" stttuan="3">Tuần 3 - [16/09/2019 -&gt; 22/09/2019]</option>
-                                <option value="23/09/2019" stttuan="4">Tuần 4 - [23/09/2019 -&gt; 29/09/2019]</option>
-                                <option value="30/09/2019" stttuan="5">Tuần 5 - [30/09/2019 -&gt; 06/10/2019]</option>
-                                <option value="07/10/2019" stttuan="6">Tuần 6 - [07/10/2019 -&gt; 13/10/2019]</option>
-                                <option value="14/10/2019" stttuan="7">Tuần 7 - [14/10/2019 -&gt; 20/10/2019]</option>
-                                <option value="21/10/2019" stttuan="8">Tuần 8 - [21/10/2019 -&gt; 27/10/2019]</option>
-                                <option value="28/10/2019" stttuan="9">Tuần 9 - [28/10/2019 -&gt; 03/11/2019]</option>
-                                <option value="04/11/2019" stttuan="10">Tuần 10 - [04/11/2019 -&gt; 10/11/2019]</option>
-                                <option value="11/11/2019" stttuan="11">Tuần 11 - [11/11/2019 -&gt; 17/11/2019]</option>
-                                <option value="18/11/2019" stttuan="12">Tuần 12 - [18/11/2019 -&gt; 24/11/2019]</option>
-                                <option value="25/11/2019" stttuan="13">Tuần 13 - [25/11/2019 -&gt; 01/12/2019]</option>
-                                <option value="02/12/2019" stttuan="14">Tuần 14 - [02/12/2019 -&gt; 08/12/2019]</option>
-                                <option value="09/12/2019" stttuan="15">Tuần 15 - [09/12/2019 -&gt; 15/12/2019]</option>
-                                <option value="16/12/2019" stttuan="16">Tuần 16 - [16/12/2019 -&gt; 22/12/2019]</option>
-                                <option value="23/12/2019" stttuan="17">Tuần 17 - [23/12/2019 -&gt; 29/12/2019]</option>
-                                <option value="30/12/2019" stttuan="18">Tuần 18 - [30/12/2019 -&gt; 05/01/2020]</option>
-                                <option value="06/01/2020" stttuan="19">Tuần 19 - [06/01/2020 -&gt; 12/01/2020]</option>
-                                <option value="13/01/2020" stttuan="20">Tuần 20 - [13/01/2020 -&gt; 19/01/2020]</option>
-                                <option value="20/01/2020" stttuan="21">Tuần 21 - [20/01/2020 -&gt; 26/01/2020]</option>
-                                <option value="27/01/2020" stttuan="22">Tuần 22 - [27/01/2020 -&gt; 02/02/2020]</option>
-                                <option value="03/02/2020" stttuan="23">Tuần 23 - [03/02/2020 -&gt; 09/02/2020]</option>
-                                <option value="10/02/2020" stttuan="24">Tuần 24 - [10/02/2020 -&gt; 16/02/2020]</option>
-                                <option value="17/02/2020" stttuan="25">Tuần 25 - [17/02/2020 -&gt; 23/02/2020]</option>
-                                <option value="24/02/2020" stttuan="26">Tuần 26 - [24/02/2020 -&gt; 01/03/2020]</option>
-                                <option value="02/03/2020" stttuan="27">Tuần 27 - [02/03/2020 -&gt; 08/03/2020]</option>
-                                <option value="09/03/2020" stttuan="28">Tuần 28 - [09/03/2020 -&gt; 15/03/2020]</option>
-                                <option value="16/03/2020" stttuan="29">Tuần 29 - [16/03/2020 -&gt; 22/03/2020]</option>
-                                <option value="23/03/2020" stttuan="30">Tuần 30 - [23/03/2020 -&gt; 29/03/2020]</option>
-                                <option value="30/03/2020" stttuan="31">Tuần 31 - [30/03/2020 -&gt; 05/04/2020]</option>
-                                <option value="06/04/2020" stttuan="32">Tuần 32 - [06/04/2020 -&gt; 12/04/2020]</option>
-                                <option value="13/04/2020" stttuan="33">Tuần 33 - [13/04/2020 -&gt; 19/04/2020]</option>
-                                <option value="20/04/2020" stttuan="34">Tuần 34 - [20/04/2020 -&gt; 26/04/2020]</option>
-                                <option value="27/04/2020" stttuan="35">Tuần 35 - [27/04/2020 -&gt; 03/05/2020]</option>
-                                <option value="04/05/2020" stttuan="36">Tuần 36 - [04/05/2020 -&gt; 10/05/2020]</option>
-                                <option value="11/05/2020" stttuan="37">Tuần 37 - [11/05/2020 -&gt; 17/05/2020]</option>
-                                <option value="18/05/2020" stttuan="38">Tuần 38 - [18/05/2020 -&gt; 24/05/2020]</option>
-                                <option value="25/05/2020" stttuan="39">Tuần 39 - [25/05/2020 -&gt; 31/05/2020]</option>
-                                <option value="01/06/2020" stttuan="40">Tuần 40 - [01/06/2020 -&gt; 07/06/2020]</option>
-                                <option value="08/06/2020" stttuan="41">Tuần 41 - [08/06/2020 -&gt; 14/06/2020]</option>
-                                <option value="15/06/2020" stttuan="42">Tuần 42 - [15/06/2020 -&gt; 21/06/2020]</option>
-                                <option value="22/06/2020" stttuan="43">Tuần 43 - [22/06/2020 -&gt; 28/06/2020]</option>
-                                <option value="29/06/2020" stttuan="44">Tuần 44 - [29/06/2020 -&gt; 05/07/2020]</option>
-                                <option value="06/07/2020" stttuan="45">Tuần 45 - [06/07/2020 -&gt; 12/07/2020]</option>
-                                <option value="13/07/2020" stttuan="46">Tuần 46 - [13/07/2020 -&gt; 19/07/2020]</option>
-                                <option value="20/07/2020" stttuan="47">Tuần 47 - [20/07/2020 -&gt; 26/07/2020]</option>
-                                <option value="27/07/2020" stttuan="48">Tuần 48 - [27/07/2020 -&gt; 02/08/2020]</option>
-                                <option value="03/08/2020" stttuan="49">Tuần 49 - [03/08/2020 -&gt; 09/08/2020]</option>
-                                <option value="10/08/2020" stttuan="50">Tuần 50 - [10/08/2020 -&gt; 16/08/2020]</option>
-                                <option value="17/08/2020" stttuan="51">Tuần 51 - [17/08/2020 -&gt; 23/08/2020]</option>
-                                <option value="24/08/2020" stttuan="52">Tuần 52 - [24/08/2020 -&gt; 30/08/2020]</option>
-                            </select>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div align="center">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <p style="text-align:center">
+                        <img src="/tmp.png" style="width:780px;height:1px;">
+                        <span id="lblTieude" style="font-size:20pt;">THỜI KHÓA BIỂU SINH VIÊN</span>
+                    </p>
+                    <div *ngFor="let item of tkb" [ngStyle]="{'margin-bottom': '20px'}">
+                        <table cellspacing="0" cellpadding="4" border="1" id="grvHocphandangky" style="color:#333333;width:100%;border-collapse:collapse;">
+                            <tr align="center" style="color:White;background-color:#507CD1;font-weight:bold;">
+                                <th scope="col"></th>
+                                <th *ngFor="let day of item.days" scope="col">
+                                    <div [ngStyle]="{color: day.Current == true ? 'red' : 'white'}">
+                                        {{day.Name}}<br><span [ngClass]="{'badge badge-secondary': day.Current}">{{day.Time}}</span>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr style="background-color:#EFF3FB;font-size:9pt;">
+                                <td align="center" style="font-size: 20px;font-weight: bold;">
+                                    <span>Sáng</span>
+                                </td>
+                                <td align="center" style="background: white;" *ngFor="let day of item.days">
+                                    <div *ngFor="let mh of day.Morning">
+                                        <div class="Lich" [ngStyle]="{'background': day.Current ? '#cfdde6' : 'white'}">
+                                            <div class="Lich" [ngStyle]="{'background': day.Current ? '#cfdde6' : 'white'}">
+                                                <p style="font-weight: bold;font-size: 15px;margin-bottom: 0;">{{mh.Phong}}</p>
+                                                <p style="font-size: 11px;color: #0f2e94;">{{mh.ThoiGianVaoHoc}}-{{mh.ThoiGianKetThuc}} ({{mh.SoTiet}}T)</p>
+                                                <p style="font-size: 15px;"><i>{{mh.TenMH}}</i></p>
+                                                <p innerHtml="mh.NoiDungDay"></p>
+                                                <p style="font-size: 15px;color: blue;">{{mh.TenGV}}</p>
+                                                <p style="font-size: 13px;">{{mh.TenLop}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr style="background-color:#EFF3FB;font-size:9pt;">
+                                <td align="center" style="font-size: 20px;font-weight: bold;">
+                                    <span>Chiều</span>
+                                </td>
+                                <td align="center" style="background: white;" *ngFor="let day of item.days">
+                                    <div *ngFor="let mh of day.Afternoon">
+                                        <div class="Lich" [ngStyle]="{'background': day.Current ? '#cfdde6' : 'white'}">
+                                            <p style="font-weight: bold;font-size: 15px;margin-bottom: 0;">{{mh.Phong}}</p>
+                                            <p style="font-size: 11px;color: #0f2e94;">{{mh.ThoiGianVaoHoc}}-{{mh.ThoiGianKetThuc}} ({{mh.SoTiet}}T)</p>
+                                            <p style="font-size: 15px;"><i>{{mh.TenMH}}</i></p>
+                                            <p innerHtml="mh.NoiDungDay"></p>
+                                            <p style="font-size: 15px;color: blue;">{{mh.TenGV}}</p>
+                                            <p style="font-size: 13px;">{{mh.TenLop}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>

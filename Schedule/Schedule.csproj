@@ -130,6 +130,7 @@
     <Compile Include="Common\ApiService.cs" />
     <Compile Include="Common\BaseController.cs" />
     <Compile Include="Common\CommonExtension.cs" />
+    <Compile Include="Common\Cors.cs" />
     <Compile Include="Common\DatetimeExtension.cs" />
     <Compile Include="Common\HtmlService.cs" />
     <Compile Include="Common\Result.cs" />

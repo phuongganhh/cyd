@@ -72,7 +72,7 @@ export class AppComponent {
       this.groups = g;
       g.forEach(x=>{
         if(x.Current){
-          this.Nhom = x.Name;
+          this.Nhom = x.Value;
         }
       })
       this.GetSchedule();

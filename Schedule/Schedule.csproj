@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\favicon.ico" />
+    <Content Include="Content\index.html" />
     <Content Include="Content\main-es2015.js" />
     <Content Include="Content\main-es5.js" />
     <Content Include="Content\polyfills-es2015.js" />

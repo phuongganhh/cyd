@@ -170,10 +170,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/22/2019 20:42:14</publishTime>
     </File>
     <File Include="bin/Schedule.dll">
-      <publishTime>11/22/2019 23:27:27</publishTime>
+      <publishTime>11/23/2019 01:01:13</publishTime>
     </File>
     <File Include="bin/Schedule.pdb">
-      <publishTime>11/22/2019 23:27:27</publishTime>
+      <publishTime>11/23/2019 01:01:13</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>11/22/2019 20:42:13</publishTime>
@@ -200,67 +200,70 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/22/2019 20:42:14</publishTime>
     </File>
     <File Include="Content/favicon.ico">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:58</publishTime>
+    </File>
+    <File Include="Content/index.html">
+      <publishTime>11/23/2019 01:00:58</publishTime>
     </File>
     <File Include="Content/main-es2015.js">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/main-es2015.js.map">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/main-es5.js">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:58</publishTime>
     </File>
     <File Include="Content/main-es5.js.map">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:58</publishTime>
     </File>
     <File Include="Content/polyfills-es2015.js">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/polyfills-es2015.js.map">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/polyfills-es5.js">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/polyfills-es5.js.map">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/runtime-es2015.js">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/runtime-es2015.js.map">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/runtime-es5.js">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/runtime-es5.js.map">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/styles-es2015.js">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/styles-es2015.js.map">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/styles-es5.js">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/styles-es5.js.map">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/vendor-es2015.js">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/vendor-es2015.js.map">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/vendor-es5.js">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="Content/vendor-es5.js.map">
-      <publishTime>11/22/2019 23:28:44</publishTime>
+      <publishTime>11/23/2019 01:00:59</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>11/22/2019 20:42:12</publishTime>

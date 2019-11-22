@@ -42,8 +42,8 @@
                                             <div class="Lich" [ngStyle]="{'background': day.Current ? '#cfdde6' : 'white'}">
                                                 <p style="font-weight: bold;font-size: 15px;margin-bottom: 0;">{{mh.Phong}}</p>
                                                 <p style="font-size: 11px;color: #0f2e94;">{{mh.ThoiGianVaoHoc}}-{{mh.ThoiGianKetThuc}} ({{mh.SoTiet}}T)</p>
-                                                <p style="font-size: 15px;"><i>{{mh.TenMH}}</i></p>
-                                                <p innerHtml="mh.NoiDungDay"></p>
+                                                <p style="font-size: 15px;"><i innerHtml="{{mh.TenMH}}"></i></p>
+                                                <p innerHtml="{{mh.NoiDungDay}}"></p>
                                                 <p style="font-size: 15px;color: blue;">{{mh.TenGV}}</p>
                                                 <p style="font-size: 13px;">{{mh.TenLop}}</p>
                                             </div>
@@ -61,8 +61,8 @@
                                         <div class="Lich" [ngStyle]="{'background': day.Current ? '#cfdde6' : 'white'}">
                                             <p style="font-weight: bold;font-size: 15px;margin-bottom: 0;">{{mh.Phong}}</p>
                                             <p style="font-size: 11px;color: #0f2e94;">{{mh.ThoiGianVaoHoc}}-{{mh.ThoiGianKetThuc}} ({{mh.SoTiet}}T)</p>
-                                            <p style="font-size: 15px;"><i>{{mh.TenMH}}</i></p>
-                                            <p innerHtml="mh.NoiDungDay"></p>
+                                            <p style="font-size: 15px;"><i innerHtml="{{mh.TenMH}}"></i></p>
+                                            <p innerHtml="{{mh.NoiDungDay}}"></p>
                                             <p style="font-size: 15px;color: blue;">{{mh.TenGV}}</p>
                                             <p style="font-size: 13px;">{{mh.TenLop}}</p>
                                         </div>

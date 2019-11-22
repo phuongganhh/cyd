@@ -130,6 +130,14 @@ namespace Schedule.Controllers
             try
             {
                 var weekAsync = await this.GetWeek();
+                if(TuNgay == DenNgay)
+                {
+                    var next = weekAsync.FirstOrDefault(x => TuNgay.ToDateTime().Date < x.Time.ToDateTime().Date);
+                    if(next != null)
+                    {
+                        DenNgay = next.Time;
+                    }
+                }
                 var scheduleAsync = await this.GetSchedule(Class, Nhom, TuNgay, DenNgay);
 
                 var tn = TuNgay.ToDateTime();

@@ -16,9 +16,12 @@ export class AppComponent {
   classes: Classes[];
   groups : any[];
   classCur: string;
+  classTmp: string;
   TuNgay: string;
   DenNgay: string;
   Nhom: string;
+  NhomTmp: string;
+  Setting: boolean = false;
   constructor(private service: ApiService){}
 
   private GetSchedule(): void {
@@ -48,6 +51,31 @@ export class AppComponent {
     this.classCur = newVal;
     this.GetSchedule();
   }
+  handleSave(){
+    this.Setting = false;
+    if(this.classTmp){
+      localStorage.setItem("class",this.classTmp);
+      this.classCur = this.classTmp;
+      this.classes.forEach(item=>{
+        item.Current = item.Name == this.classTmp;
+      });
+    }
+    if(this.NhomTmp){
+      localStorage.setItem("group",this.NhomTmp);
+      this.Nhom = this.NhomTmp;
+      this.groups.forEach(item=>{
+        item.Current = item.Value == this.NhomTmp;
+      });
+    }
+    this.GetSchedule();
+  }
+  onSaveClass(e){
+    this.classTmp = e.target.value;
+    
+  }
+  onSaveGroup(e){
+    this.NhomTmp =  e.target.value;
+  }
   onChangeGroup(e){
     const newVal = e.target.value;
     this.Nhom = newVal;
@@ -59,9 +87,20 @@ export class AppComponent {
   private GetClass() : void{
     this.service.Get<Classes[]>("/api/class").subscribe(c =>{
       this.classes = c;
+      var cl = localStorage.getItem("class");
       c.forEach(x=>{
-        if(x.Current){
-          this.classCur = x.Name;
+        if(cl){
+          x.Current = x.Name == cl;
+          if(x.Current){
+            this.classCur = cl;
+            this.classTmp = cl;
+          }
+        }
+        else{
+          if(x.Current){
+            this.classCur = x.Name;
+            this.classTmp = x.Name;
+          }
         }
       })
       this.GetGroup();
@@ -70,10 +109,21 @@ export class AppComponent {
   private GetGroup() : void{
     this.service.Get<any>("/api/group").subscribe(g =>{
       this.groups = g;
+      var gr = localStorage.getItem("group");
+
       g.forEach(x=>{
-        if(x.Current){
-          this.Nhom = x.Value;
-        }
+        if(gr){
+          x.Current = x.Value == gr;
+          if(x.Current){
+            this.Nhom = gr;
+            this.NhomTmp = gr;
+          }
+        } 
+        else{
+          if(x.Current){
+            this.Nhom = x.Value;
+          }
+        } 
       })
       this.GetSchedule();
     });

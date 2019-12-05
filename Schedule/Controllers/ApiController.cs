@@ -118,9 +118,21 @@ namespace Schedule.Controllers
             });
             l.Add(new
             {
+                Name = "Nhóm 1",
+                Value = "N1",
+                Current = false
+            });
+            l.Add(new
+            {
                 Name = "Nhóm 2",
                 Value = "N2",
                 Current = true
+            });
+            l.Add(new
+            {
+                Name = "Nhóm 3",
+                Value = "N3",
+                Current = false
             });
             return this.JsonExpando(l);
         }

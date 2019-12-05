@@ -1,9 +1,9 @@
 <div id="pnlPrint" style="width:780px;height: 2000px;" *ngIf="tkb">
     <div style="display: inline;">
-        <select (change)="onChange($event);" class="form-control" style="width: 25%;float: left;" *ngIf="week">
+        <select (change)="onChange($event);" class="form-control" style="width: 16.5%;float: left;" *ngIf="week">
             <option *ngFor="let w of week" value="{{w.Time}}" selected="{{w.Current ? 'selected' : ''}}" [ngClass]="{'weekCurrent': w.Current}">Từ {{w.Text}}</option>
         </select>
-        <select (change)="onChangeDenNgay($event);" class="form-control" style="width: 27%;float: left;" *ngIf="week">
+        <select (change)="onChangeDenNgay($event);" class="form-control" style="width: 18%;float: left;" *ngIf="week">
             <option *ngFor="let w of week" value="{{w.Time}}" selected="{{w.Current ? 'selected' : ''}}" [ngClass]="{'weekCurrent': w.Current}">Đến {{w.Text}}</option>
         </select>
         <select (change)="onChangeClass($event);" class="form-control" style="width:21%;float: left;" *ngIf="classes">
@@ -12,8 +12,29 @@
         <select (change)="onChangeGroup($event);" class="form-control" style="width: 24%;float: left;" *ngIf="groups">
             <option  *ngFor="let g of groups" value="{{g.Value}}" selected="{{g.Current ? 'selected' : ''}}" [ngClass]="{'weekCurrent': g.Current}">{{g.Name}}</option>
         </select>
+        <button type="button" class="btn btn-primary" (click)="Setting = true">Thiết lập</button>
     </div>
-
+    <!-- Modal -->
+    <div class="modal fade show" [ngStyle]="{'display': Setting ? 'block' : 'none'}"  style="padding-right: 17px;">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Thiết lập mặc định</h5>
+            </div>
+            <div class="modal-body" *ngIf="classes && groups">
+                <select (change)="onSaveClass($event);" class="form-control" style="width:50%;float: left;" *ngIf="classes">
+                    <option  *ngFor="let c of classes" value="{{c.Name}}" selected="{{c.Current ? 'selected' : ''}}" [ngClass]="{'weekCurrent': c.Current}">{{c.Name}}</option>
+                </select>
+                <select (change)="onSaveGroup($event);" class="form-control" style="width: 50%;float: left;" *ngIf="groups">
+                    <option  *ngFor="let g of groups" value="{{g.Value}}" selected="{{g.Current ? 'selected' : ''}}" [ngClass]="{'weekCurrent': g.Current}">{{g.Name}}</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="handleSave();">Lưu thay đổi</button>
+            </div>
+        </div>
+        </div>
+    </div>
     <div align="center">
         <table cellpadding="0" cellspacing="0">
             <tr>

@@ -166,8 +166,8 @@ namespace Schedule.Controllers
                             Time = time.ToString("dd/MM"),
                             Name = time.DayOfWeek.ConvertString(),
                             Current = time == DateTime.Now.Date,
-                            Morning = scheduleAsync.Where(w => w.Ngay.ToDateTime().Date == time.Date && w.Ngay.ToDateTime().Date.AddMinutes(w.ThoiGianBatDau).Hour <= 12),
-                            Afternoon = scheduleAsync.Where(w => w.Ngay.ToDateTime().Date == time.Date && w.Ngay.ToDateTime().Date.AddMinutes(w.ThoiGianBatDau).Hour > 12)
+                            Morning = scheduleAsync.Where(w => w.Ngay.ToDateTime().Date == time.Date && w.Ngay.ToDateTime().Date.AddMinutes(w.ThoiGianBatDau).Hour < 12),
+                            Afternoon = scheduleAsync.Where(w => w.Ngay.ToDateTime().Date == time.Date && w.Ngay.ToDateTime().Date.AddMinutes(w.ThoiGianBatDau).Hour >= 12)
                         });
                     }
                     return new

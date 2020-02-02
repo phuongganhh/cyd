@@ -15,24 +15,24 @@
         <button type="button" class="btn btn-primary" (click)="Setting = true">Thiết lập</button>
     </div>
     <!-- Modal -->
-    <div class="modal fade show" [ngStyle]="{'display': Setting ? 'block' : 'none'}"  style="padding-right: 17px;">
+    <div class="modal fade show" [ngStyle]="{'display': Setting ? 'block' : 'none'}" style="padding-right: 17px;">
         <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Thiết lập mặc định</h5>
-            </div>
-            <div class="modal-body" *ngIf="classes && groups">
-                <select (change)="onSaveClass($event);" class="form-control" style="width:50%;float: left;" *ngIf="classes">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thiết lập mặc định</h5>
+                </div>
+                <div class="modal-body" *ngIf="classes && groups">
+                    <select (change)="onSaveClass($event);" class="form-control" style="width:50%;float: left;" *ngIf="classes">
                     <option  *ngFor="let c of classes" value="{{c.Name}}" selected="{{c.Current ? 'selected' : ''}}" [ngClass]="{'weekCurrent': c.Current}">{{c.Name}}</option>
                 </select>
-                <select (change)="onSaveGroup($event);" class="form-control" style="width: 50%;float: left;" *ngIf="groups">
+                    <select (change)="onSaveGroup($event);" class="form-control" style="width: 50%;float: left;" *ngIf="groups">
                     <option  *ngFor="let g of groups" value="{{g.Value}}" selected="{{g.Current ? 'selected' : ''}}" [ngClass]="{'weekCurrent': g.Current}">{{g.Name}}</option>
                 </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="handleSave();">Lưu thay đổi</button>
+                </div>
             </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="handleSave();">Lưu thay đổi</button>
-            </div>
-        </div>
         </div>
     </div>
     <div align="center">
@@ -46,9 +46,9 @@
                     <div *ngFor="let item of tkb" [ngStyle]="{'margin-bottom': '20px'}">
                         <table cellspacing="0" cellpadding="4" border="1" id="grvHocphandangky" style="color:#333333;width:100%;border-collapse:collapse;">
                             <tr align="center" style="color:White;background-color:#507CD1;font-weight:bold;">
-                                <th scope="col"></th>
-                                <th *ngFor="let day of item.days" scope="col">
-                                    <div [ngStyle]="{color: day.Current == true ? 'red' : 'white'}">
+                                <th scope="col" style="background-color:yellow;"></th>
+                                <th *ngFor="let day of item.days" scope="col" [ngStyle]="{'background-color': 'yellow'}">
+                                    <div [ngStyle]="{color: day.Current == true ? 'red' : 'black'}">
                                         {{day.Name}}<br><span [ngClass]="{'badge badge-secondary': day.Current}">{{day.Time}}</span>
                                     </div>
                                 </th>
@@ -63,8 +63,8 @@
                                             <div class="Lich" [ngStyle]="{'background': day.Current ? '#cfdde6' : 'white'}">
                                                 <p style="font-weight: bold;font-size: 15px;margin-bottom: 0;">{{mh.Phong}}</p>
                                                 <p style="font-size: 11px;color: #0f2e94;">{{mh.ThoiGianVaoHoc}}-{{mh.ThoiGianKetThuc}} ({{mh.SoTiet}}T)</p>
-                                                <p style="font-size: 15px;"><i innerHtml="{{mh.TenMH}}"></i></p>
-                                                <p innerHtml="{{mh.NoiDungDay}}"></p>
+                                                <p style="font-size: 15px;font-weight: bold;color: red;"><i innerHtml="{{mh.TenMH}}"></i></p>
+                                                <p style="font-weight: bold;color: #4e9a14;" innerHtml="{{mh.NoiDungDay}}"></p>
                                                 <p style="font-size: 15px;color: blue;">{{mh.TenGV}}</p>
                                                 <p style="font-size: 13px;">{{mh.TenLop}}</p>
                                             </div>
@@ -82,8 +82,8 @@
                                         <div class="Lich" [ngStyle]="{'background': day.Current ? '#cfdde6' : 'white'}">
                                             <p style="font-weight: bold;font-size: 15px;margin-bottom: 0;">{{mh.Phong}}</p>
                                             <p style="font-size: 11px;color: #0f2e94;">{{mh.ThoiGianVaoHoc}}-{{mh.ThoiGianKetThuc}} ({{mh.SoTiet}}T)</p>
-                                            <p style="font-size: 15px;"><i innerHtml="{{mh.TenMH}}"></i></p>
-                                            <p innerHtml="{{mh.NoiDungDay}}"></p>
+                                            <p style="font-size: 15px;font-weight: bold;color: red;"><i innerHtml="{{mh.TenMH}}"></i></p>
+                                            <p style="font-weight: bold;color: #4e9a14;" innerHtml="{{mh.NoiDungDay}}"></p>
                                             <p style="font-size: 15px;color: blue;">{{mh.TenGV}}</p>
                                             <p style="font-size: 13px;">{{mh.TenLop}}</p>
                                         </div>

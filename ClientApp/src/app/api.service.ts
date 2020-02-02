@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ApiService {
 
   constructor(private http: HttpClient) { }
-  private Host: string = "";
+  private Host: string = "http://localhost:50779/";
   public Get<T>(url: string) : Observable<T>{
     return this.http.get<T>(this.Host + url);
   }

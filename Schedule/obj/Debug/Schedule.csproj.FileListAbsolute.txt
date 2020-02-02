@@ -151,8 +151,8 @@ C:\Project\cyd\Schedule\bin\System.Web.WebPages.Razor.xml
 C:\Project\cyd\Schedule\bin\Newtonsoft.Json.xml
 C:\Project\cyd\Schedule\bin\Antlr3.Runtime.pdb
 C:\Project\cyd\Schedule\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Project\cyd\Schedule\obj\Debug\Schedule.csprojAssemblyReference.cache
 C:\Project\cyd\Schedule\obj\Debug\Schedule.csproj.CoreCompileInputs.cache
 C:\Project\cyd\Schedule\obj\Debug\Schedule.csproj.CopyComplete
 C:\Project\cyd\Schedule\obj\Debug\Schedule.dll
 C:\Project\cyd\Schedule\obj\Debug\Schedule.pdb
+C:\Project\cyd\Schedule\obj\Debug\Schedule.csprojAssemblyReference.cache

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -181,6 +182,43 @@ namespace Schedule.Controllers
             catch (Exception)
             {
                 return this.JsonExpando(new List<dynamic>());
+            }
+        }
+
+        public async Task<ActionResult> Login(string username,string password)
+        {
+            using(var service = new ApiService())
+            {
+                var dic = new Dictionary<string, object>()
+                {
+                    ["uName"] = username,
+                    ["uPass"] = password,
+                    ["log"] = " "
+                };
+                await service.Post<string>("/AjaxFunction.aspx/GoHome");
+                var result = await service.Post<string>("/AjaxFunction.aspx/DangNhap", dic);
+                var data = result.d.Split('@');
+                if(data[0] == "0")
+                {
+                    return this.JsonExpando(new
+                    {
+                        message = data[1],
+                        isSuccess = false
+                    });
+                }
+                else
+                {
+                    var html = await service.Get("http://tinchi.cyd.edu.vn/SVMain.aspx");
+                    var doc = HtmlService.Instance.Load(html);
+                    var name = doc.GetElementbyId("xHoTenSV");
+                    return this.JsonExpando(new
+                    {
+                        message = data[1],
+                        isSuccess = data[0] == "2",
+                        name = name,
+                        token = Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(new { username,password})))
+                    });
+                }
             }
         }
     }
